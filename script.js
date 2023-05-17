@@ -1,5 +1,8 @@
 /** @type {NodeListOf<HTMLElement>} */
 const bullets = document.querySelectorAll(".bullets > button");
+
+const maxIndex = 2;
+
 let carrouselIndex = 0;
 const carrouselImages = document.querySelector(".carrousel-images");
 
@@ -10,7 +13,7 @@ const setUi = () => {
   if (index === maxIndex) nextButton.style.display = "none";
   else nextButton.style.display = "grid";
 
-  slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+  carrouselImages.style.transform = `translateX(-${carrouselIndex * 100}%)`;
 
   const { backgroundColor } = getComputedStyle(sections[index]);
   body.style.backgroundColor = backgroundColor;
@@ -22,6 +25,8 @@ setUi();
 
 function updateImage() {
   carrouselImages.style.transform = `translateX(-${carrouselIndex * 100}%)`;
+  for (const bullet of bullets) bullet.classList.remove("active");
+  bullets[carrouselIndex].classList.add("active");
 }
 
 function previousImage() {
@@ -36,6 +41,6 @@ function nextImage() {
 
 for (let i = 0; i < bullets.length; i++)
   bullets[i].addEventListener("click", () => {
-    index = i;
-    setUi();
+    carrouselIndex = i;
+    updateImage();
   });
