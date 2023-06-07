@@ -9,7 +9,6 @@ body {
   max-width: 300px;
   width: 400px;
   height: 600px;
-  object-fit: scale-down;
 }
 
 h1 {
@@ -20,7 +19,6 @@ h1 {
 }
 
 p {
-  font-family: "Syne";
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
@@ -33,12 +31,9 @@ p {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
   gap: 90px;
-
   padding: 0 120px;
   position: sticky;
-  top: 0;
   overflow: hidden;
 }
 
