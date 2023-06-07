@@ -1,46 +1,79 @@
-/** @type {NodeListOf<HTMLElement>} */
-const bullets = document.querySelectorAll(".bullets > button");
+const container = document.querySelector("#affiche");
 
-const maxIndex = 2;
+fetch(
+  "https://api.themoviedb.org/3/movie/upcoming?language=fr-FR&region=FR&include_adult=false&api_key=7bdfca91b891c942c352ec4a2b825824"
+)
+  .then((res) => res.json())
+  .then((data) => {
+    data.results.forEach((film) => {
+      if (
+        film.overview !== "" &&
+        film.poster_path !== "" &&
+        film.poster_path !== null &&
+        film.original_title !== ""
+      ) {
+        const description = film.overview;
+        const image = film.poster_path;
+        const titre = film.original_title;
 
-let carrouselIndex = 0;
-const carrouselImages = document.querySelector(".carrousel-images");
+        const createContainer = document.createElement("div");
+        createContainer.classList.add("container");
+        const imageElt = document.createElement("img");
+        imageElt.crossOrigin = "anonymous";
+        imageElt.src = `https://image.tmdb.org/t/p/w400/${image}`;
+        imageElt.alt = titre;
+        imageElt.classList.add("poster");
 
-const setUi = () => {
-  if (index === 0) previousButton.style.display = "none";
-  else previousButton.style.display = "grid";
+        const colorThief = new ColorThief();
 
-  if (index === maxIndex) nextButton.style.display = "none";
-  else nextButton.style.display = "grid";
+        imageElt.addEventListener("load", () => {
+          const dominantColor = colorThief.getColor(imageElt);
 
-  carrouselImages.style.transform = `translateX(-${carrouselIndex * 100}%)`;
+          createContainer.style.backgroundColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
 
-  const { backgroundColor } = getComputedStyle(sections[index]);
-  body.style.backgroundColor = backgroundColor;
+          createContainer.style.borderColor =
+            "rgb(" +
+            dominantColor[2][0] +
+            "," +
+            dominantColor[2][1] +
+            "," +
+            dominantColor[2][2] +
+            ")";
+          title.style.color =
+            "rgb(" +
+            dominantColor[2][0] +
+            "," +
+            dominantColor[2][1] +
+            "," +
+            dominantColor[2][2] +
+            ")";
+          texte.style.color =
+            "rgb(" +
+            dominantColor[2][0] +
+            "," +
+            dominantColor[2][1] +
+            "," +
+            dominantColor[2][2] +
+            ")";
+        });
 
-  for (const bullet of bullets) bullet.classList.remove("active");
-  bullets[index].classList.add("active");
-};
-setUi();
+        const informationDiv = document.createElement("div");
+        informationDiv.classList.add("information");
 
-function updateImage() {
-  carrouselImages.style.transform = `translateX(-${carrouselIndex * 100}%)`;
-  for (const bullet of bullets) bullet.classList.remove("active");
-  bullets[carrouselIndex].classList.add("active");
-}
+        const title = document.createElement("h1");
+        title.classList.add("title");
+        title.textContent = titre;
 
-function previousImage() {
-  carrouselIndex = (carrouselIndex - 1 + 3) % 3;
-  updateImage();
-}
+        const texte = document.createElement("p");
+        texte.classList.add("texte");
+        texte.textContent = description;
 
-function nextImage() {
-  carrouselIndex = (carrouselIndex + 1) % 3;
-  updateImage();
-}
-
-for (let i = 0; i < bullets.length; i++)
-  bullets[i].addEventListener("click", () => {
-    carrouselIndex = i;
-    updateImage();
-  });
+        informationDiv.appendChild(title);
+        informationDiv.appendChild(texte);
+        createContainer.appendChild(imageElt);
+        createContainer.appendChild(informationDiv);
+        container.appendChild(createContainer);
+      }
+    });
+  })
+  .catch((error) => console.error(error));

@@ -1,49 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-FR">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>switch film</title>
+    <meta name="description" content="API" />
     <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script src="script.js" defer></script>
-    <title>Carrousel Responsive avec Flèches</title>
   </head>
   <body>
-    <nav class="navbar">
-      <div class="logo-container">
-        <img src="Img/Logo.png" alt="Logo" class="logo" />
-      </div>
-      <ul class="nav-links">
-        <li><a href="#accueil" class="nav-link">Accueil</a></li>
-        <li><a href="accueil.html" class="nav-link">À propos</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="carrousel">
-      <div class="carrousel-images">
-        <img src="Img/dunkerque 1.jpg" class="carrousel-image" alt="Image 1" />
-        <img
-          src="Img/interstellar 1.jpg"
-          class="carrousel-image"
-          alt="Image 2"
-        />
-        <img
-          src="Img/Tenet-Nolan_horizontal 1.jpg"
-          class="carrousel-image"
-          alt="Image 3"
-        />
-      </div>
-      <button class="arrow arrow-left" onclick="previousImage()">
-        <img src="Img/gauche.png" alt="gauche" width="70px" height="70px" />
-      </button>
-      <button class="arrow arrow-right" onclick="nextImage()">
-        <img src="Img/droite.png" alt="droite" width="70px" height="70px" />
-      </button>
-      <div class="bullets">
-        <button aria-label="Aller à la première diapositive"></button>
-        <button aria-label="Aller à la deuxième diapositive"></button>
-        <button aria-label="Aller à la troisième diapositive"></button>
-      </div>
-    </div>
+    <div id="affiche"></div>
   </body>
 </html>
